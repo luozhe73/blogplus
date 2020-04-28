@@ -6,6 +6,6 @@
 
     <select id="queryByUsernameAndPassword" resultType="com.luozhe.pojo.User">
         select * from blog.t_user
-        where username = #{username} and password=#{password};
+        where username = #{username} and password=#{password}
     </select>
 </mapper>
