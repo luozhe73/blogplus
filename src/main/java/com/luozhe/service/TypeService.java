@@ -4,11 +4,13 @@ import com.luozhe.pojo.Type;
 
 import java.util.List;
 
-public interface TyepService {
+public interface TypeService {
 
     void saveType(Type type);
 
-    Type getType(Long id);
+    Type getTypeById(Long id);
+
+    Type getTypeByName(String name);
 
     List<Type> listType();
 

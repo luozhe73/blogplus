@@ -1,37 +1,35 @@
 package com.luozhe.service.impl;
 
 import com.luozhe.pojo.Type;
-import com.luozhe.service.TyepService;
+import com.luozhe.service.TypeService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class TypeServiceImplTest {
 
     @Autowired
-    TyepService tyepService;
+    TypeService typeService;
 
     @Test
     void saveType() {
         Type t = new Type();
         t.setName("ss");
-        tyepService.saveType(t);
+        typeService.saveType(t);
     }
 
     @Test
     void getType() {
-        Type type = tyepService.getType(1l);
+        Type type = typeService.getTypeById(1l);
         System.out.println(type);
     }
 
     @Test
-    void listType() { System.out.println(tyepService.listType());
+    void listType() { System.out.println(typeService.listType());
     }
 
     @Test
@@ -40,5 +38,6 @@ class TypeServiceImplTest {
 
     @Test
     void deleteType() {
+        typeService.deleteType(17l);
     }
 }

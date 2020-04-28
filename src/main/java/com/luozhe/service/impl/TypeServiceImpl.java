@@ -3,7 +3,7 @@ package com.luozhe.service.impl;
 import com.luozhe.dao.TypeDao;
 import com.luozhe.exception.NotFoundException;
 import com.luozhe.pojo.Type;
-import com.luozhe.service.TyepService;
+import com.luozhe.service.TypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TypeServiceImpl implements TyepService {
+public class TypeServiceImpl implements TypeService {
 
     @Autowired
     TypeDao typeDao;
@@ -22,8 +22,13 @@ public class TypeServiceImpl implements TyepService {
     }
 
     @Override
-    public Type getType(Long id) {
+    public Type getTypeById(Long id) {
         return typeDao.getById(id);
+    }
+
+    @Override
+    public Type getTypeByName(String name) {
+        return typeDao.getByName(name);
     }
 
     @Override
@@ -43,6 +48,6 @@ public class TypeServiceImpl implements TyepService {
 
     @Override
     public void deleteType(Long id) {
-         typeDao.deleteType();
+         typeDao.deleteType(id);
     }
 }

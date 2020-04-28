@@ -9,7 +9,7 @@
     </select>
 
     <update id="updateType" parameterType="com.luozhe.pojo.Type">
-        update blog.t_type set name=#{name}
+        update blog.t_type set name=#{name} where id=#{id}
     </update>
 
     <delete id="deleteType" parameterType="Long">
@@ -20,6 +20,10 @@
         select t.id as tid ,t.name tname,b.title,b.type_id from blog.t_type t left join blog.t_blog b
         on  t.id=b.type_id
         where t.id=#{id}
+    </select>
+
+    <select id="getByName" resultType="com.luozhe.pojo.Type">
+         select * from blog.t_type where name=#{name}
     </select>
 
     <select id="getAllType" resultType="com.luozhe.pojo.Type">

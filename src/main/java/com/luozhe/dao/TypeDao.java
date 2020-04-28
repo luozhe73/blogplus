@@ -14,9 +14,11 @@ public interface TypeDao {
 
     void updateType(Type type);
 
-    void deleteType();
+    void deleteType(Long id);
 
     Type getById(Long id);
+
+    Type getByName(String name);
 
     List<Type> getAllType();
 }
