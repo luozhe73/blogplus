@@ -17,7 +17,7 @@
     </delete>
 
     <select id="getById" parameterType="Long" resultMap="type">
-        select t.id as tid ,t.name tname,b.title,b.type_id from blog.t_type t left join blog.t_blog b
+        select t.id as tid ,t.name tname,b.title,b.type_id,b.id as bid from blog.t_type t left join blog.t_blog b
         on  t.id=b.type_id
         where t.id=#{id}
     </select>

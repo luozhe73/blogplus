@@ -61,7 +61,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="type,iterStat : ${page.content}">
+          <tr th:each="type,iterStat : ${pageInfo.list}">
             <td th:text="${iterStat.count}">1</td>
             <td th:text="${type.name}">刻意练习清单</td>
             <td>
@@ -73,9 +73,9 @@
         <tfoot>
           <tr>
             <th colspan="6" >
-              <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
-                <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>
-                <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>
+              <div class="ui mini pagination menu" th:if="${pageInfo.total}>1">
+                <a th:href="@{/admin/tags(pageNum=${pageInfo.pageNum}-1)}" class="  item" th:unless="${pageInfo.isFirstPage}">上一页</a>
+                <a th:href="@{/admin/tags(pageNum=${pageInfo.pageNum}+1)}" class=" item" th:unless="${pageInfo.isLastPage}">下一页</a>
               </div>
               <a href="#" th:href="@{/admin/tags/input}"  class="ui mini right floated teal basic button">新增</a>
             </th>

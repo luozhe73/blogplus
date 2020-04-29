@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Tag {
+
     private Long id;
+
+    @NotBlank(message = "不能为空")
     private String name;
 
     private List<Blog> blogs = new ArrayList<>();

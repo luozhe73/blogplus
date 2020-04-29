@@ -18,7 +18,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public void saveType(Type type) {
-         typeDao.addType(type);
+        typeDao.addType(type);
     }
 
     @Override
@@ -38,16 +38,16 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public void updateType(Long id, Type type) {
-        Type type1=typeDao.getById(id);
-        if (type1==null){
+        Type type1 = typeDao.getById(id);
+        if (type1 == null) {
             throw new NotFoundException("不存在该类型");
         }
-        BeanUtils.copyProperties(type,type1);
-         typeDao.updateType(type1);
+        BeanUtils.copyProperties(type, type1);
+        typeDao.updateType(type1);
     }
 
     @Override
     public void deleteType(Long id) {
-         typeDao.deleteType(id);
+        typeDao.deleteType(id);
     }
 }
