@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Blog {
-
 
     private Long id;
     private String title;
@@ -43,4 +43,17 @@ public class Blog {
     private List<Tag> tags = new ArrayList<>();
 
     private List<Comment> comments = new ArrayList<>();
+
+    private String createTimestr;
+    private String updateTimestr;
+
+    public String getCreateTimestr() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
+        return createTime != null ? simpleDateFormat.format(this.createTime) : "1990-01-01";
+    }
+
+    public String getUpdateTimestr() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss");
+        return updateTime != null ? simpleDateFormat.format(this.updateTime) : "1990-01-01";
+    }
 }
