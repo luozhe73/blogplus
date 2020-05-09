@@ -37,6 +37,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public  List<Tag> listTopTag(Integer size){
+        return tagDao.getTopTag(size);
+    }
+
+    @Override
     public void updateTag(Long id, Tag tag) {
         Tag tag1 = tagDao.getById(id);
         if(tag1==null){

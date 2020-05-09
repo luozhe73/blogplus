@@ -14,6 +14,8 @@ public interface TagService {
 
     List<Tag> listTag();
 
+    List<Tag> listTopTag(Integer size);
+
     void updateTag(Long id,Tag tag);
 
     void deleteTag(Long id);

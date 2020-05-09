@@ -30,6 +30,17 @@
         select * from blog.t_tag
     </select>
 
+    <select id="getTopTag"  resultType="com.luozhe.pojo.Tag" resultMap="type">
+        select
+            t.id tid,t.name tname,b.id bid,b.title title,b.type_id typeId
+        from blog.t_tag t
+        left join blog.t_blog_tags tb
+        on t.id=tb.tags_id
+        left join blog.t_blog b
+        on tb.blogs_id=b.id
+        order by b.id limit 0,#{size}
+    </select>
+
     <resultMap id="type" type="com.luozhe.pojo.Tag">
         <id property="id" column="tid"/>
         <result property="name" column="tname"/>

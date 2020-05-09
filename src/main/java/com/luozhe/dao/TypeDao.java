@@ -2,6 +2,7 @@ package com.luozhe.dao;
 
 import com.luozhe.pojo.Type;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,7 @@ public interface TypeDao {
     Type getByName(String name);
 
     List<Type> getAllType();
+
+    List<Type> getTopType(@Param("size")  Integer size);
+
 }

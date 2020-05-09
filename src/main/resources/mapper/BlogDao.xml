@@ -25,31 +25,48 @@
             <id property="id" column="tid"/>
             <result property="name" column="tname"/>
         </association>
-<!--        <collection property="tags" ofType="com.luozhe.pojo.Tag">-->
-<!--            <id property="id" column="ttid"/>-->
-<!--            <result property="name" column="ttname"/>-->
-<!--        </collection>-->
+        <association property="user" javaType="com.luozhe.pojo.User">
+            <id property="id" column="uid"/>
+            <result property="nickname" column="uname"/>
+            <result property="avatar" column="uavator"/>
+            <result property="username" column="username"/>
+        </association>
+        <!--        <collection property="tags" ofType="com.luozhe.pojo.Tag">-->
+        <!--            <id property="id" column="ttid"/>-->
+        <!--            <result property="name" column="ttname"/>-->
+        <!--        </collection>-->
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="TBlogMap">
         select
-          b.id, appreciation, commentabled, content, create_time, first_picture, flag, published, recommend, share_statement, title, update_time, views, type_id, user_id, description,
-        type.name tname,type.id tid
+          b.id, appreciation, commentabled, content, b.create_time, first_picture, flag, published, recommend, share_statement, title, b.update_time, views, type_id, user_id, description,
+        type.name tname,type.id tid,u.id uid,u.nickname uname,u.avatar uavatar,u.username
         from blog.t_blog b
         left join blog.t_type type
         on b.type_id=type.id
+        left join blog.t_user u
+        on u.id=b.user_id
         where b.id = #{id}
     </select>
 
+    <select id="queryRecomendBlog" resultMap="TBlogMap">
+        select
+          id, appreciation, commentabled, content, create_time, first_picture, flag, published, recommend, share_statement, title, update_time, views, type_id, user_id, description
+        from blog.t_blog  where recommend='1' and published='1'
+        order by id limit 0,#{size}
+    </select>
 
     <select id="queryByBlogQuery" resultMap="TBlogMap" parameterType="com.luozhe.dto.BlogQuery">
         select
-          b.id, appreciation, commentabled, content, create_time, first_picture, flag, published, recommend, share_statement, title, update_time, views, type_id, user_id, description,
-        type.name tname,type.id tid
+        b.id, appreciation, commentabled, content, b.create_time, first_picture, flag, published, recommend,
+        share_statement, title, b.update_time, views, type_id, user_id, description,
+        type.name tname,type.id tid,u.id uid,u.nickname uname,u.avatar uavatar,u.username
         from blog.t_blog b
         left join blog.t_type type
         on b.type_id=type.id
+        left join blog.t_user u
+        on u.id=b.user_id
         <where>
             <if test="title != null and title !=''">
                 and b.title like concat('%',#{title},'%')
@@ -67,11 +84,14 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="TBlogMap">
         select
-        b.id, appreciation, commentabled, content, create_time, first_picture, flag, published, recommend,
-        share_statement, title, update_time, views, type_id, user_id, description,type.name tname,type.id tid
+        b.id, appreciation, commentabled, content, b.create_time, first_picture, flag, published, recommend,
+        share_statement, title, b.update_time, views, type_id, user_id, description,type.name tname,type.id tid,
+        u.id uid,u.nickname uname,u.avatar uavatar,u.username
         from blog.t_blog b
         left join blog.t_type type
         on b.type_id=type.id
+        left join blog.t_user u
+        on u.id=b.user_id
         <where>
             <if test="id != null">
                 and b.id = #{id}
@@ -196,7 +216,37 @@
         select * from blog.t_blog_tags where blogs_id=#{blogsId}
     </select>
 
-    <delete id="deleteBlogAndTag" >
+    <delete id="deleteBlogAndTag">
         delete from blog.t_blog_tags where blogs_id=#{blogsId}
     </delete>
+
+    <select id="searchBlogs" resultMap="TBlogMap">
+        select b.*,type.name tname,type.id tid,u.id uid,u.nickname uname,u.avatar uavatar,u.username
+        from blog.t_blog  b
+        left join blog.t_type type
+        on b.type_id=type.id
+        left join blog.t_user u
+        on u.id=b.user_id
+        where title like concat('%',#{query},'%') or content like concat('%',#{query},'%')
+    </select>
+
+    <select id="queryByTagId" resultMap="TBlogMap">
+        select distinct b.*,type.name tname,type.id tid,u.id uid,u.nickname uname,u.avatar uavatar,u.username
+        from blog.t_blog  b
+        left join blog.t_type type
+        on b.type_id=type.id
+        left join blog.t_user u
+        on u.id=b.user_id
+        left join blog.t_blog_tags t
+        on b.id=t.blogs_id
+        where t.tags_id=#{tagId}
+    </select>
+
+    <select id="queryAllYears" resultType="java.lang.String">
+        select date_format(b.update_time,'%Y') as year from blog.t_blog b group by year order by year desc
+    </select>
+    
+    <select id="queryBlogByYear" resultMap="TBlogMap">
+        select * from blog.t_blog b where date_format(b.update_time,'%Y')=#{year}
+    </select>
 </mapper>

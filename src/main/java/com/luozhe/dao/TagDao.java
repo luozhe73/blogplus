@@ -1,8 +1,8 @@
 package com.luozhe.dao;
 
 import com.luozhe.pojo.Tag;
-import com.luozhe.pojo.Type;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +22,6 @@ public interface TagDao {
     Tag getByName(String name);
 
     List<Tag> getAllTag();
+
+    List<Tag> getTopTag(@Param("size") Integer size);
 }

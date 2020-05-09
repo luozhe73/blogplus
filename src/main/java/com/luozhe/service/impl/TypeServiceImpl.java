@@ -37,6 +37,11 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
+    public List<Type> listTopType(Integer size){
+        return typeDao.getTopType(size);
+    }
+
+    @Override
     public void updateType(Long id, Type type) {
         Type type1 = typeDao.getById(id);
         if (type1 == null) {

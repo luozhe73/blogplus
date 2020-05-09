@@ -1,5 +1,6 @@
 package com.luozhe.dao;
 
+import com.alibaba.druid.support.logging.NoLoggingImpl;
 import com.luozhe.dto.BlogAndTag;
 import com.luozhe.dto.BlogQuery;
 import com.luozhe.pojo.Blog;
@@ -29,5 +30,15 @@ public interface BlogDao {
 
     List<BlogAndTag> queryBlogAndTag(Long blogsId);
 
+    List<Blog> queryRecomendBlog(Integer size);
+
     void deleteBlogAndTag(Long blogsId);
+
+    List<Blog> searchBlogs(String query);
+
+    List<Blog> queryByTagId(Long tagId);
+
+    List<String> queryAllYears();
+
+    List<Blog> queryBlogByYear(String year);
 }

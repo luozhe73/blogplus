@@ -22,11 +22,11 @@ public class Blog {
     private String firstPicture;
     private String flag;
     private Integer views;
-    private boolean appreciation;
-    private boolean shareStatement;
-    private boolean commentabled;
-    private boolean published;
-    private boolean recommend;
+    private Boolean appreciation;
+    private Boolean shareStatement;
+    private Boolean commentabled;
+    private Boolean published;
+    private Boolean recommend;
     private Date createTime;
     private Date updateTime;
     //这个属性用来在mybatis中进行连接查询的
