@@ -32,7 +32,7 @@ public class IndexController {
     public String index(Model model,
                         @RequestParam(defaultValue = "1", value = "pageNum") Integer pageNum) {
 
-        PageHelper.offsetPage(pageNum, 8);
+        PageHelper.startPage(pageNum, 8);
         Blog blog = new Blog();
         blog.setPublished(true);
         List<Blog> blogList = blogService.getBlog(blog);
@@ -63,5 +63,9 @@ public class IndexController {
         return "search";
     }
 
-
+    @GetMapping("/footer/newblog")
+    public String newblogs(Model model) {
+        model.addAttribute("newblogs", blogService.getRecomendBlog(3));
+        return "_fragments :: newblogList";
+    }
 }
